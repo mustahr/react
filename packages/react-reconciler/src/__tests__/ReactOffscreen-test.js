@@ -1598,9 +1598,8 @@ describe('ReactOffscreen', () => {
     });
 
     expect(offscreenRef.current).not.toBeNull();
-    const firstFiber = offscreenRef.current;
+    const firstFiber = offscreenRef.current._current;
 
-    console.log('about to render second time');
     await act(async () => {
       root.render(
         <App>
@@ -1609,7 +1608,7 @@ describe('ReactOffscreen', () => {
       );
     });
 
-    expect(offscreenRef.current._current === firstFiber._current).toBeFalsy();
+    expect(offscreenRef.current._current === firstFiber).toBeFalsy();
   });
 
   // TODO: When attach/detach methods are implemented. Add tests for nested Offscreen case.
